@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday to My Babygirl!!!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  :root {
+    --sky: #87CEEB;
+    --aqua: #00CED1;
+    --deep: #0077B6;
+    --deeper: #023E8A;
+    --coral: #FF6B9D;
+    --coral-light: #FFB3CE;
+    --mint: #98F5E1;
+    --foam: rgba(255,255,255,0.25);
+    --glass-bg: rgba(255,255,255,0.18);
+    --glass-border: rgba(255,255,255,0.4);
+    --text-dark: #023E8A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(180deg, #87CEEB 0%, #00CED1 35%, #0077B6 65%, #023E8A 100%);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ===== BUBBLES ===== */
+  .bubbles-container {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  .bubble {
+    position: absolute; bottom: -80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(255,255,255,0.08));
+    border: 1.5px solid rgba(255,255,255,0.5);
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-110vh) translateX(30px) scale(1.1); opacity: 0; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 60px 20px 30px;
+  }
+  .hero-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    color: #fff;
+    text-shadow: 0 4px 20px rgba(0,120,180,0.5), 0 0 40px rgba(255,255,255,0.3);
+    letter-spacing: 2px;
+    animation: titlePop 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes titlePop {
+    0% { transform: scale(0.5) translateY(30px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+  }
+  .hero-sub {
+    font-size: 1.2rem; color: rgba(255,255,255,0.88);
+    margin-top: 8px; font-weight: 600;
+    animation: fadeIn 1s 0.4s both;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  /* ===== GLASS CARD ===== */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: 28px;
+    box-shadow: 0 8px 40px rgba(0,60,120,0.25), inset 0 1px 0 rgba(255,255,255,0.5);
+  }
+
+  /* ===== CAKE SECTION ===== */
+  .cake-section {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+    padding: 20px;
+  }
+  .cake-wrapper {
+    padding: 32px 40px 28px;
+    text-align: center;
+    animation: fadeIn 1s 0.6s both;
+    max-width: 400px; width: 100%;
+  }
+
+  /* ===== CAKE SVG ===== */
+  .cake-container { position: relative; display: inline-block; }
+  #birthdayCake { width: min(280px, 80vw); height: auto; cursor: pointer; filter: drop-shadow(0 10px 30px rgba(0,100,180,0.3)); }
+
+  /* Candles */
+  .candle-flame {
+    animation: flickerFlame 0.4s ease-in-out infinite alternate;
+    transform-origin: center bottom;
+  }
+  @keyframes flickerFlame {
+    0% { transform: scaleX(1) scaleY(1); opacity: 1; }
+    100% { transform: scaleX(0.85) scaleY(1.12); opacity: 0.9; }
+  }
+  .candle-flame.blown { animation: none; opacity: 0; transition: opacity 0.4s; }
+  #blowBtn {
+    font-family: 'Fredoka One', cursive;
+    margin-top: 14px; padding: 10px 28px;
+    background: linear-gradient(135deg, var(--coral), #ff8fab);
+    color: #fff; border: none; border-radius: 50px;
+    font-size: 1rem; cursor: pointer;
+    box-shadow: 0 4px 20px rgba(255,107,157,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  #blowBtn:hover { transform: scale(1.07); box-shadow: 0 6px 28px rgba(255,107,157,0.55); }
+  #blowBtn:disabled { opacity: 0.5; cursor: default; }
+  .blown-msg {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem; color: var(--mint);
+    margin-top: 10px; display: none;
+    text-shadow: 0 2px 10px rgba(0,80,150,0.5);
+  }
+
+  /* ===== MENU BUTTONS ===== */
+  .menu-section {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; gap: 32px;
+    flex-wrap: wrap; padding: 10px 20px 40px;
+    animation: fadeIn 1s 1s both;
+  }
+  .bubble-btn {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    border: none; cursor: pointer;
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem; color: #fff;
+    gap: 6px;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+    animation: btnFloat 3s ease-in-out infinite;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .bubble-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 25%, rgba(255,255,255,0.55), rgba(255,255,255,0) 65%);
+    pointer-events: none;
+  }
+  .bubble-btn::after {
+    content: '';
+    position: absolute; inset: -3px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(255,255,255,0.45);
+    pointer-events: none;
+  }
+  .bubble-btn:hover { transform: scale(1.14) translateY(-6px); }
+  .bubble-btn:active { transform: scale(0.96); }
+
+  .btn-gallery {
+    background: radial-gradient(circle at 40% 35%, #ff9fc7, #FF6B9D 55%, #c2185b);
+    box-shadow: 0 8px 30px rgba(255,107,157,0.55), inset 0 1px 0 rgba(255,255,255,0.3);
+    animation-delay: 0s;
+  }
+  .btn-story {
+    background: radial-gradient(circle at 40% 35%, #6ee7ff, #00CED1 55%, #0077B6);
+    box-shadow: 0 8px 30px rgba(0,206,209,0.55), inset 0 1px 0 rgba(255,255,255,0.3);
+    animation-delay: 0.4s;
+  }
+  @keyframes btnFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .bubble-btn:hover { animation: none; }
+  .btn-icon { font-size: 2rem; line-height: 1; }
+  .btn-tooltip {
+    position: absolute; bottom: -36px;
+    background: rgba(0,30,60,0.75); backdrop-filter: blur(8px);
+    color: #fff; font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem; padding: 4px 12px;
+    border-radius: 20px; white-space: nowrap;
+    opacity: 0; transform: translateY(4px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+  .bubble-btn:hover .btn-tooltip { opacity: 1; transform: translateY(0); }
+
+  /* ===== MODALS ===== */
+  .modal-content {
+    background: linear-gradient(135deg, rgba(0,150,200,0.35), rgba(0,80,150,0.25)) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1.5px solid rgba(255,255,255,0.35) !important;
+    border-radius: 28px !important;
+    color: #fff;
+    box-shadow: 0 20px 80px rgba(0,30,80,0.5) !important;
+  }
+  .modal-header { border-bottom: 1px solid rgba(255,255,255,0.2) !important; }
+  .modal-footer { border-top: 1px solid rgba(255,255,255,0.2) !important; }
+  .modal-title {
+    font-family: 'Fredoka One', cursive !important;
+    font-size: 1.6rem; color: #fff;
+    text-shadow: 0 2px 12px rgba(0,150,220,0.5);
+  }
+  .btn-close { filter: invert(1); }
+
+  /* ===== PASSWORD GATE ===== */
+  #pwGate { text-align: center; padding: 16px 0; }
+  #pwGate p { color: rgba(255,255,255,0.85); font-size: 0.95rem; margin-bottom: 14px; }
+  .pw-input-wrap {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  }
+  #pwInput {
+    background: rgba(255,255,255,0.18);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 50px; color: #fff;
+    padding: 10px 20px; font-family: 'Nunito', sans-serif;
+    font-size: 1rem; outline: none; width: 180px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  #pwInput::placeholder { color: rgba(255,255,255,0.5); }
+  #pwInput:focus { border-color: var(--mint); background: rgba(255,255,255,0.28); }
+  #pwInput.shake { animation: shake 0.4s; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+  }
+  .pw-btn {
+    background: linear-gradient(135deg, var(--coral), #ff8fab);
+    border: none; border-radius: 50px;
+    color: #fff; font-family: 'Fredoka One', cursive;
+    padding: 10px 22px; font-size: 1rem;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 18px rgba(255,107,157,0.4);
+  }
+  .pw-btn:hover { transform: scale(1.06); }
+  #pwError { color: #FFB3CE; font-size: 0.85rem; margin-top: 8px; min-height: 20px; }
+
+  /* ===== GALLERY ===== */
+  #galleryContent { display: none; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px; padding: 8px 0;
+  }
+  .gallery-item {
+    border-radius: 16px; overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.3);
+    aspect-ratio: 1;
+    background: rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+  }
+  .gallery-item:hover { transform: scale(1.07); box-shadow: 0 8px 28px rgba(0,150,200,0.4); }
+  .gallery-item::after {
+    content: attr(data-label);
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,30,80,0.7));
+    color: #fff; font-size: 0.65rem; font-weight: 700;
+    text-align: center; padding: 10px 4px 6px;
+    border-radius: 0 0 14px 14px;
+  }
+  .gallery-note {
+    text-align: center; color: rgba(255,255,255,0.7);
+    font-size: 0.82rem; margin-top: 12px; font-style: italic;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline { position: relative; padding: 8px 0; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 22px; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--mint), var(--aqua), var(--coral));
+    border-radius: 3px;
+  }
+  .tl-item {
+    display: flex; gap: 18px; margin-bottom: 28px; align-items: flex-start;
+    animation: slideIn 0.5s ease both;
+  }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: none; } }
+  .tl-dot {
+    width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+    border: 3px solid rgba(255,255,255,0.5);
+    box-shadow: 0 4px 18px rgba(0,120,200,0.35);
+    position: relative; z-index: 1;
+  }
+  .tl-body { flex: 1; }
+  .tl-year {
+    font-family: 'Fredoka One', cursive; font-size: 1rem;
+    color: var(--mint); margin-bottom: 2px;
+  }
+  .tl-title {
+    font-weight: 800; font-size: 0.95rem; color: #fff; margin-bottom: 4px;
+  }
+  .tl-desc { font-size: 0.85rem; color: rgba(255,255,255,0.78); line-height: 1.5; }
+
+  /* ===== SCROLLBAR ===== */
+  .modal-body { overflow-y: auto; max-height: 60vh; }
+  .modal-body::-webkit-scrollbar { width: 6px; }
+  .modal-body::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
+  .modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 10px; }
+
+  /* ===== FISH DECO ===== */
+  .fish-deco {
+    position: fixed; font-size: 1.5rem;
+    animation: swimAcross linear infinite;
+    pointer-events: none; z-index: 1; opacity: 0.55;
+  }
+  @keyframes swimAcross {
+    0% { transform: translateX(-100px) scaleX(1); }
+    49% { transform: translateX(calc(100vw + 100px)) scaleX(1); }
+    50% { transform: translateX(calc(100vw + 100px)) scaleX(-1); }
+    99% { transform: translateX(-100px) scaleX(-1); }
+    100% { transform: translateX(-100px) scaleX(1); }
+  }
+
+  /* ===== SEAWEED ===== */
+  .seaweed {
+    position: fixed; bottom: 0;
+    font-size: 2.5rem; pointer-events: none; z-index: 1;
+    animation: sway 3s ease-in-out infinite alternate;
+    filter: drop-shadow(0 4px 8px rgba(0,100,150,0.3));
+  }
+  @keyframes sway { from { transform: rotate(-10deg) translateY(0); } to { transform: rotate(10deg) translateY(-6px); } }
+
+  /* ===== SPECIAL MESSAGE BUTTON ===== */
+  .btn-message {
+    background: radial-gradient(circle at 40% 35%, #ffe066, #FFD700 55%, #e6a800);
+    box-shadow: 0 8px 30px rgba(255,215,0,0.55), inset 0 1px 0 rgba(255,255,255,0.3);
+    animation-delay: 0.8s;
+  }
+
+  /* ===== SPECIAL MESSAGE MODAL ===== */
+  .msg-envelope {
+    text-align: center; padding: 8px 0 20px;
+  }
+  .envelope-icon {
+    font-size: 4rem; display: block; margin-bottom: 16px;
+    animation: envelopePop 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes envelopePop {
+    from { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .msg-letter {
+    background: rgba(255,255,255,0.13);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 24px 22px;
+    font-size: 0.97rem;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.85;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  .msg-letter::before {
+    content: '❝';
+    position: absolute; top: 8px; left: 14px;
+    font-size: 3rem; color: rgba(255,215,0,0.25);
+    font-family: Georgia, serif; line-height: 1;
+  }
+  .msg-letter p { margin: 0 0 12px 0; }
+  .msg-letter p:last-child { margin: 0; }
+  .msg-sign {
+    text-align: right; margin-top: 18px;
+    font-family: 'Fredoka One', cursive;
+    color: var(--mint); font-size: 1.05rem;
+  }
+  .msg-hearts {
+    display: flex; justify-content: center; gap: 8px;
+    margin-top: 20px; font-size: 1.4rem;
+    animation: heartsPulse 1.5s ease-in-out infinite alternate;
+  }
+  @keyframes heartsPulse {
+    from { transform: scale(1); }
+    to   { transform: scale(1.12); }
+  }
+
+  /* ===== DAY COUNTER ===== */
+  .counter-section {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center;
+    padding: 0 20px 16px;
+    animation: fadeIn 1s 1.2s both;
+  }
+  .counter-card {
+    padding: 18px 28px;
+    text-align: center;
+    width: 100%; max-width: 480px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .counter-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem; color: rgba(255,255,255,0.75);
+    letter-spacing: 0.5px;
+  }
+  .counter-nums {
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center;
+  }
+  .counter-block {
+    display: flex; flex-direction: column; align-items: center;
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 14px;
+    padding: 8px 14px;
+    min-width: 58px;
+  }
+  .counter-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.9rem; color: #fff;
+    line-height: 1;
+    text-shadow: 0 2px 12px rgba(0,150,220,0.5);
+  }
+  .counter-unit {
+    font-size: 0.65rem; color: rgba(255,255,255,0.6);
+    font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .counter-heart { font-size: 1.6rem; color: var(--coral); animation: heartsPulse 1.5s ease-in-out infinite alternate; }
+
+  /* ===== MUSIC PLAYER ===== */
+  #musicBar {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+    background: linear-gradient(90deg, rgba(2,62,138,0.92), rgba(0,119,182,0.88), rgba(0,30,80,0.92));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1.5px solid rgba(255,255,255,0.2);
+    box-shadow: 0 -4px 40px rgba(0,20,60,0.5);
+    padding: 10px 20px 12px;
+    display: flex; align-items: center; gap: 14px;
+    flex-wrap: nowrap;
+  }
+  .music-info {
+    display: flex; align-items: center; gap: 10px;
+    min-width: 0; flex-shrink: 0;
+  }
+  .music-album-art {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--coral), var(--aqua));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+    animation: spinArt 8s linear infinite paused;
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 14px rgba(255,107,157,0.4);
+  }
+  .music-album-art.playing { animation-play-state: running; }
+  @keyframes spinArt { to { transform: rotate(360deg); } }
+  .music-track-info { min-width: 0; }
+  .music-track-name {
+    font-family: 'Fredoka One', cursive;
+    color: #fff; font-size: 0.85rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 120px;
+  }
+  .music-track-artist {
+    font-size: 0.7rem; color: rgba(255,255,255,0.55);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 120px;
+  }
+  .music-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .music-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; transition: transform 0.2s, background 0.2s;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+  }
+  .music-btn:hover { transform: scale(1.12); background: rgba(255,255,255,0.25); }
+  .music-btn.play-btn {
+    width: 44px; height: 44px; font-size: 1.1rem;
+    background: linear-gradient(135deg, var(--coral), #ff8fab);
+    box-shadow: 0 4px 16px rgba(255,107,157,0.45);
+  }
+  .music-btn.play-btn:hover { box-shadow: 0 6px 22px rgba(255,107,157,0.6); }
+  .music-progress-wrap { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 80px; }
+  .music-time-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.65rem; color: rgba(255,255,255,0.55);
+    font-weight: 700;
+  }
+  .music-progress {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 5px; border-radius: 10px; cursor: pointer;
+    background: rgba(255,255,255,0.2);
+    outline: none;
+  }
+  .music-progress::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--coral); cursor: pointer;
+    box-shadow: 0 0 6px rgba(255,107,157,0.6);
+    transition: transform 0.15s;
+  }
+  .music-progress:hover::-webkit-slider-thumb { transform: scale(1.3); }
+  .music-volume-wrap { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .vol-icon { font-size: 0.95rem; cursor: pointer; color: rgba(255,255,255,0.7); transition: color 0.2s; }
+  .vol-icon:hover { color: #fff; }
+  .music-volume {
+    -webkit-appearance: none; appearance: none;
+    width: 70px; height: 4px; border-radius: 10px; cursor: pointer;
+    background: rgba(255,255,255,0.2); outline: none;
+  }
+  .music-volume::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--mint); cursor: pointer;
+    box-shadow: 0 0 6px rgba(152,245,225,0.5);
+  }
+  .music-no-src {
+    font-size: 0.7rem; color: rgba(255,255,255,0.45); font-style: italic;
+  }
+
+  /* ===== PAGE BOTTOM PADDING for music bar ===== */
+  body { padding-bottom: 80px; }
+
+  @media (max-width: 576px) {
+    .menu-section { gap: 20px; padding-bottom: 20px; }
+    .bubble-btn { width: 110px; height: 110px; }
+    .hero { padding: 40px 16px 20px; }
+    .music-track-name, .music-track-artist { max-width: 70px; }
+    .music-volume { width: 50px; }
+    #musicBar { gap: 8px; padding: 8px 10px 10px; }
+    .counter-card { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BUBBLES -->
+<div class="bubbles-container" id="bubblesContainer"></div>
+
+<!-- FISH -->
+<div class="fish-deco" style="top:20%;animation-duration:18s;animation-delay:0s;">🦈</div>
+<div class="fish-deco" style="top:55%;animation-duration:25s;animation-delay:-8s;">🐢</div>
+<div class="fish-deco" style="top:75%;animation-duration:20s;animation-delay:-4s;">🐟</div>
+<div class="seaweed" style="left:3%;animation-delay:0s;">🌿</div>
+<div class="seaweed" style="left:8%;animation-delay:0.5s;">🌿</div>
+<div class="seaweed" style="right:3%;animation-delay:0.3s;">🌿</div>
+<div class="seaweed" style="right:8%;animation-delay:0.8s;">🌿</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-title">🤍Happy Birthday to My Babygirl, Dear Eyin!🧡</div>
+  <div class="hero-sub">Wishing you a never ending stream of love, joy, happiness, positivity and as always, love yourself my dear princess🤍🧡</div>
+</div>
+
+<!-- CAKE SECTION -->
+<div class="cake-section">
+  <div class="glass-card cake-wrapper">
+    <div class="cake-container">
+      <svg id="birthdayCake" viewBox="0 0 280 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Brownie texture gradient -->
+          <linearGradient id="brownieGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#5C3317"/>
+            <stop offset="40%" style="stop-color:#3B1A08"/>
+            <stop offset="100%" style="stop-color:#2A0F04"/>
+          </linearGradient>
+          <!-- Cheesecake body gradient -->
+          <linearGradient id="cheeseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFF3C4"/>
+            <stop offset="50%" style="stop-color:#FFE680"/>
+            <stop offset="100%" style="stop-color:#F5C842"/>
+          </linearGradient>
+          <!-- Cream top gradient -->
+          <linearGradient id="creamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFFBEE"/>
+            <stop offset="100%" style="stop-color:#FFF3C4"/>
+          </linearGradient>
+          <!-- Caramel drip gradient -->
+          <linearGradient id="caramelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#C87941"/>
+            <stop offset="100%" style="stop-color:#A0522D"/>
+          </linearGradient>
+          <!-- Ganache gradient -->
+          <linearGradient id="ganacheGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#4A2000"/>
+            <stop offset="100%" style="stop-color:#2A1000"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Plate shadow -->
+        <ellipse cx="140" cy="228" rx="112" ry="10" fill="#3B1A08" opacity="0.3"/>
+
+        <!-- ===== BOTTOM TIER (Brownie base + Cheesecake body) ===== -->
+        <!-- Brownie crust bottom -->
+        <rect x="24" y="198" width="232" height="24" rx="12" fill="url(#brownieGrad)"/>
+        <!-- Brownie crust highlight -->
+        <rect x="24" y="198" width="232" height="7" rx="6" fill="#7A4520" opacity="0.6"/>
+        <!-- Brownie crack texture -->
+        <path d="M60 204 Q80 200 100 205 Q120 210 140 203 Q160 198 180 204 Q200 210 220 204" stroke="#2A0F04" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <path d="M80 210 Q100 206 120 211" stroke="#2A0F04" stroke-width="1" fill="none" opacity="0.4"/>
+        <path d="M160 208 Q180 204 200 209" stroke="#2A0F04" stroke-width="1" fill="none" opacity="0.4"/>
+
+        <!-- Cheesecake body bottom tier -->
+        <rect x="24" y="152" width="232" height="48" rx="0" fill="url(#cheeseGrad)"/>
+        <rect x="24" y="152" width="232" height="48" rx="0" fill="rgba(255,243,196,0.2)"/>
+        <!-- Side sheen -->
+        <rect x="24" y="152" width="18" height="48" fill="rgba(255,255,255,0.15)" rx="0"/>
+        <rect x="238" y="152" width="18" height="48" fill="rgba(0,0,0,0.06)" rx="0"/>
+        <!-- Brownie chunk inclusions in cheesecake -->
+        <rect x="45" y="162" width="14" height="10" rx="3" fill="#5C3317" opacity="0.75"/>
+        <rect x="80" y="172" width="12" height="9" rx="3" fill="#3B1A08" opacity="0.7"/>
+        <rect x="120" y="160" width="16" height="11" rx="3" fill="#5C3317" opacity="0.75"/>
+        <rect x="165" y="170" width="13" height="9" rx="3" fill="#3B1A08" opacity="0.7"/>
+        <rect x="205" y="163" width="14" height="10" rx="3" fill="#5C3317" opacity="0.7"/>
+        <rect x="60" y="182" width="10" height="8" rx="2" fill="#3B1A08" opacity="0.65"/>
+        <rect x="145" y="178" width="11" height="8" rx="2" fill="#5C3317" opacity="0.65"/>
+        <rect x="220" y="180" width="10" height="7" rx="2" fill="#3B1A08" opacity="0.6"/>
+
+        <!-- Caramel drip layer on bottom tier top -->
+        <rect x="24" y="148" width="232" height="10" rx="5" fill="url(#caramelGrad)"/>
+        <path d="M45 148 Q50 158 47 165 Q44 158 45 148Z" fill="#C87941"/>
+        <path d="M80 148 Q86 162 83 170 Q79 162 80 148Z" fill="#A0522D"/>
+        <path d="M115 148 Q120 156 118 163 Q114 156 115 148Z" fill="#C87941"/>
+        <path d="M155 148 Q160 160 157 167 Q153 160 155 148Z" fill="#A0522D"/>
+        <path d="M195 148 Q200 158 197 165 Q193 158 195 148Z" fill="#C87941"/>
+        <path d="M230 148 Q235 155 232 161 Q228 155 230 148Z" fill="#A0522D"/>
+
+        <!-- ===== MIDDLE TIER ===== -->
+        <!-- Brownie base middle -->
+        <rect x="48" y="140" width="184" height="16" rx="8" fill="url(#brownieGrad)"/>
+        <rect x="48" y="140" width="184" height="6" rx="4" fill="#7A4520" opacity="0.5"/>
+        <!-- Crack texture -->
+        <path d="M70 145 Q95 141 120 146 Q145 151 170 144 Q195 139 215 145" stroke="#2A0F04" stroke-width="1.2" fill="none" opacity="0.45"/>
+
+        <!-- Cheesecake body middle tier -->
+        <rect x="48" y="100" width="184" height="42" rx="0" fill="url(#cheeseGrad)"/>
+        <rect x="48" y="100" width="18" height="42" fill="rgba(255,255,255,0.15)"/>
+        <rect x="214" y="100" width="18" height="42" fill="rgba(0,0,0,0.06)"/>
+        <!-- Brownie chunks middle -->
+        <rect x="65" y="110" width="13" height="9" rx="3" fill="#5C3317" opacity="0.75"/>
+        <rect x="100" y="120" width="14" height="10" rx="3" fill="#3B1A08" opacity="0.7"/>
+        <rect x="140" y="108" width="12" height="9" rx="3" fill="#5C3317" opacity="0.75"/>
+        <rect x="180" y="118" width="13" height="9" rx="3" fill="#3B1A08" opacity="0.7"/>
+        <rect x="82" y="128" width="10" height="7" rx="2" fill="#5C3317" opacity="0.6"/>
+        <rect x="160" y="126" width="11" height="7" rx="2" fill="#3B1A08" opacity="0.6"/>
+
+        <!-- Ganache / dark chocolate drip on middle -->
+        <rect x="48" y="97" width="184" height="8" rx="4" fill="url(#ganacheGrad)"/>
+        <path d="M68 97 Q73 108 70 115 Q66 108 68 97Z" fill="#3B1A08"/>
+        <path d="M100 97 Q106 110 103 118 Q99 110 100 97Z" fill="#2A1000"/>
+        <path d="M135 97 Q140 107 137 114 Q133 107 135 97Z" fill="#3B1A08"/>
+        <path d="M170 97 Q175 109 172 116 Q168 109 170 97Z" fill="#2A1000"/>
+        <path d="M205 97 Q209 106 207 112 Q203 106 205 97Z" fill="#3B1A08"/>
+
+        <!-- ===== TOP TIER ===== -->
+        <!-- Brownie base top -->
+        <rect x="78" y="89" width="124" height="14" rx="7" fill="url(#brownieGrad)"/>
+        <rect x="78" y="89" width="124" height="5" rx="3" fill="#7A4520" opacity="0.5"/>
+
+        <!-- Cheesecake top tier body -->
+        <rect x="78" y="58" width="124" height="33" rx="0" fill="url(#cheeseGrad)"/>
+        <rect x="78" y="58" width="14" height="33" fill="rgba(255,255,255,0.15)"/>
+        <rect x="188" y="58" width="14" height="33" fill="rgba(0,0,0,0.06)"/>
+        <!-- Brownie chunks top -->
+        <rect x="93" y="66" width="11" height="8" rx="2" fill="#5C3317" opacity="0.7"/>
+        <rect x="128" y="74" width="12" height="8" rx="2" fill="#3B1A08" opacity="0.7"/>
+        <rect x="162" y="65" width="11" height="8" rx="2" fill="#5C3317" opacity="0.7"/>
+
+        <!-- Cream cheese top swirl -->
+        <ellipse cx="140" cy="58" rx="62" ry="8" fill="url(#creamGrad)"/>
+        <ellipse cx="140" cy="58" rx="62" ry="8" fill="rgba(255,255,255,0.25)"/>
+        <!-- Swirl shine -->
+        <ellipse cx="118" cy="56" rx="20" ry="4" fill="rgba(255,255,255,0.45)" transform="rotate(-8,118,56)"/>
+
+        <!-- Caramel sauce pool on top -->
+        <ellipse cx="140" cy="57" rx="40" ry="5" fill="#C87941" opacity="0.5"/>
+        <!-- Chocolate drizzle on top -->
+        <path d="M105 55 Q120 50 135 56 Q150 62 165 55 Q175 50 180 56" stroke="#3B1A08" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+        <path d="M110 60 Q125 54 140 60 Q155 66 170 60" stroke="#5C3317" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+        <!-- Brownie chunk toppers on very top -->
+        <rect x="96" y="51" width="14" height="10" rx="3" fill="#3B1A08"/>
+        <rect x="96" y="51" width="14" height="4" rx="2" fill="#5C3317" opacity="0.6"/>
+        <rect x="133" y="50" width="14" height="10" rx="3" fill="#3B1A08"/>
+        <rect x="133" y="50" width="14" height="4" rx="2" fill="#5C3317" opacity="0.6"/>
+        <rect x="170" y="51" width="14" height="10" rx="3" fill="#3B1A08"/>
+        <rect x="170" y="51" width="14" height="4" rx="2" fill="#5C3317" opacity="0.6"/>
+
+        <!-- Powdered sugar dusting -->
+        <circle cx="88" cy="54" r="2" fill="white" opacity="0.7"/>
+        <circle cx="158" cy="52" r="1.5" fill="white" opacity="0.6"/>
+        <circle cx="193" cy="55" r="2" fill="white" opacity="0.7"/>
+        <circle cx="113" cy="53" r="1.5" fill="white" opacity="0.5"/>
+        <circle cx="175" cy="57" r="1" fill="white" opacity="0.6"/>
+
+        <!-- Strawberry garnish -->
+        <ellipse cx="58" cy="196" rx="9" ry="11" fill="#E8192C"/>
+        <ellipse cx="58" cy="190" rx="7" ry="6" fill="#FF4455"/>
+        <rect x="56" y="182" width="4" height="8" rx="2" fill="#3A7D1E"/>
+        <circle cx="54" cy="196" r="1" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="61" cy="193" r="0.8" fill="rgba(255,255,255,0.4)"/>
+
+        <ellipse cx="222" cy="196" rx="9" ry="11" fill="#E8192C"/>
+        <ellipse cx="222" cy="190" rx="7" ry="6" fill="#FF4455"/>
+        <rect x="220" y="182" width="4" height="8" rx="2" fill="#3A7D1E"/>
+        <circle cx="218" cy="196" r="1" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="225" cy="193" r="0.8" fill="rgba(255,255,255,0.4)"/>
+        <!-- Candles -->
+        <!-- Candle 1 -->
+        <rect x="95" y="28" width="10" height="26" rx="5" fill="#C87941"/>
+        <rect x="95" y="28" width="10" height="8" rx="4" fill="#A0522D"/>
+        <ellipse id="flame1" cx="100" cy="24" rx="5" ry="7" fill="#FFD700" class="candle-flame"/>
+        <ellipse cx="100" cy="26" rx="2.5" ry="3.5" fill="#FFA500" class="candle-flame"/>
+        <!-- Candle 2 -->
+        <rect x="135" y="24" width="10" height="28" rx="5" fill="#F5C842"/>
+        <rect x="135" y="24" width="10" height="8" rx="4" fill="#C87941"/>
+        <ellipse id="flame2" cx="140" cy="20" rx="5" ry="7" fill="#FFD700" class="candle-flame"/>
+        <ellipse cx="140" cy="22" rx="2.5" ry="3.5" fill="#FFA500" class="candle-flame"/>
+        <!-- Candle 3 -->
+        <rect x="175" y="28" width="10" height="26" rx="5" fill="#5C3317"/>
+        <rect x="175" y="28" width="10" height="8" rx="4" fill="#3B1A08"/>
+        <ellipse id="flame3" cx="180" cy="24" rx="5" ry="7" fill="#FFD700" class="candle-flame"/>
+        <ellipse cx="180" cy="26" rx="2.5" ry="3.5" fill="#FFA500" class="candle-flame"/>
+        <!-- Wick lines -->
+        <line x1="100" y1="28" x2="100" y2="31" stroke="#333" stroke-width="1.5"/>
+        <line x1="140" y1="24" x2="140" y2="27" stroke="#333" stroke-width="1.5"/>
+        <line x1="180" y1="28" x2="180" y2="31" stroke="#333" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <br>
+    <button id="blowBtn" onclick="blowCandles()">🌬️ Blow the Candles!</button>
+    <div class="blown-msg" id="blownMsg">🌟Once again congratulations baby!✨</div>
+  </div>
+</div>
+
+<!-- DAY COUNTER -->
+<div class="counter-section">
+  <div class="glass-card counter-card">
+    <div class="counter-label">We've been Together for</div>
+    <div class="counter-nums">
+      <div class="counter-block"><div class="counter-num" id="cntDays">—</div><div class="counter-unit">Days</div></div>
+      <div class="counter-block"><div class="counter-num" id="cntHours">—</div><div class="counter-unit">Hrs</div></div>
+      <div class="counter-block"><div class="counter-num" id="cntMins">—</div><div class="counter-unit">Min</div></div>
+      <div class="counter-block"><div class="counter-num" id="cntSecs">—</div><div class="counter-unit">Sec</div></div>
+      <div class="counter-label">And counting...</div>
+    </div>
+    <div class="counter-heart">💗</div>
+  </div>
+</div>
+
+<!-- MENU BUTTONS -->
+<div class="menu-section">
+  <button class="bubble-btn btn-gallery" onclick="openGallery()" title="Open Gallery">
+    <span class="btn-icon">📸</span>
+    <span>Gallery</span>
+    <span class="btn-tooltip">🔒 Password Protected</span>
+  </button>
+  <button class="bubble-btn btn-story" onclick="openStory()" title="Our Story">
+    <span class="btn-icon">💌</span>
+    <span>Our Story</span>
+    <span class="btn-tooltip">💖 Love Timeline</span>
+  </button>
+  <button class="bubble-btn btn-message" onclick="openMessage()" title="Special Message">
+    <span class="btn-icon">💛</span>
+    <span>For You</span>
+    <span class="btn-tooltip">✨ A Special Birthday Message For You</span>
+  </button>
+</div>
+
+<!-- ===== GALLERY MODAL ===== -->
+<div class="modal fade" id="galleryModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">A Collection of My Favourite Pics of You (and also me😛)💛</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <!-- PASSWORD GATE -->
+        <div id="pwGate">
+          <div style="font-size:3rem;margin-bottom:12px;">🔐</div>
+          <p>Gallery ini khusus untuk Eyinn<br>If you wanna open it.. you know the password right?</p>
+          <div class="pw-input-wrap">
+            <input type="password" id="pwInput" placeholder="Enter password…" onkeydown="if(event.key==='Enter')checkPw()"/>
+            <button class="pw-btn" onclick="checkPw()">Unlock 🗝️</button>
+          </div>
+          <div id="pwError"></div>
+          <p style="color:rgba(255,255,255,0.45);font-size:0.75rem;margin-top:20px;">Format: MM-DD-YYYY </p>
+        </div>
+        <!-- GALLERY CONTENT (hidden until unlocked) -->
+        <div id="galleryContent">
+          <div class="gallery-grid">
+            <div class="gallery-item" data-label="First pap waktu sayang p rambut msih pendek!">
+              <img src="pic54.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="-1 hari sebelum ketemuan..">
+              <img src="pic3.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="And then pap di hari torang mo ketemuan">
+              <img src="pic1.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Another pap, still as beautiful as i remembered" >
+              <img src="pic2.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="7th of November, 2025. The first time we met and also jadian🤍🧡">
+              <img src="pic4.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Second date di tatawa smpe mati lampu rking">
+              <img src="pic6.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Torg p third date! (ada anomali at the time :v )">
+              <img src="pic5.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="First pic dimana sayang ta jepret :p">
+              <img src="pic7.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Another date smpe pulg malam torang ofc">
+              <img src="pic8.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Sayang p first time maso kampus pa qtaa :o">
+              <img src="pic9.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Another date at tatawa (smpe malam pula)">
+              <img src="pic10.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="After kampus date again of coursee">
+              <img src="pic11.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Torang yg udah mulai lebih dekat sekali after one week!">
+              <img src="pic12.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Photobox ala - ala dan seadanya :v (sponsored by tatawa again)">
+              <img src="pic13.png" style="width: 100%; height:100%;object-fit:contain">
+            </div>
+            <div class="gallery-item" data-label="Heres one with different pose">
+              <img src="pic14.png" style="width: 100%; height:100%;object-fit:contain">
+            </div>
+            <div class="gallery-item" data-label="Heres the one yg sayang taruh diblkg hp">
+              <img src="pic15.png" style="width: 100%; height:100%;object-fit:contain">
+            </div>
+            <div class="gallery-item" data-label="When the two of us were at Kopken">
+              <img src="pic17.png" style="width: 100%; height:100%;object-fit:contain">
+            </div>
+            <div class="gallery-item" data-label="Another cute picture of us at Kopken">
+              <img src="pic18.png" style="width: 100%; height:100%;object-fit:contain">
+            </div>
+            <div class="gallery-item" data-label="First time foto di photobox bareng (after bauni Avatar 3, sangat masterpiece) ">
+              <img src="pic16.jpg" style="width: 100%; height:100%;object-fit:contain">
+            </div>
+            <div class="gallery-item" data-label="The second time torang photobox at sunbaee">
+              <img src="pic19.jpg" style="width: 100%; height:100%;object-fit:contain">
+            </div>
+            <div class="gallery-item" data-label="Random pic of when i took of you sleepingg.">
+              <img src="pic20.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Date at York Cafe, coffee was good but my gf is better">
+              <img src="pic21.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Our date at Walu Beans (with vic and ash)">
+              <img src="pic22.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Waktu sayang datang ke rumah, ktemuan dgn mamaa">
+              <img src="pic23.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="A cute, very cuteee screenshot i take of you">
+              <img src="pic24.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Baku adu sipaling random siapa :v ">
+              <img src="pic25.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Awww sayang waktu bobo dengan Ao">
+              <img src="pic26.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Ao terlalu nyaman ama mamanya..">
+              <img src="pic27.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Ao with baby1.jpg">
+              <img src="pic28.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Ao with baby2.jpg">
+              <img src="pic29.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Another momen when i hug sayang saat lagi down">
+              <img src="pic30.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Gacor squad siap melaksanakan">
+              <img src="pic31.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Random LDR moment1.jpg">
+              <img src="pic32.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Random_LDR_moment2.jpg">
+              <img src="pic33.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Cute pose of us doing the heart sign">
+              <img src="pic34.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Waktu sayang ke gereja bareng qta, mama and kaka (dicrop agar bisa melihat bibirnya)">
+              <img src="pic35.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Sayang baru bangun dari long sleep">
+              <img src="pic36.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Sayang siap2 ke pantai (cute af pke topi)">
+              <img src="pic37.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="CUTE pic yg didapatin windy (thank you amat windy)">
+              <img src="pic38.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="WOAH MOMMYYY WHAUWWW LET ME GET SOME OF YOUU!!!!">
+              <img src="pic39.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Dog filter (so cute oh my gosh kok bisa se cute ini)">
+              <img src="pic40.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Something about this pic triggered something deep within me...">
+              <img src="pic41.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Sayang make sweaterkuu for the first timee (smpe skarang msih sayang pke)">
+              <img src="pic42.jpg" style="width: 100%; height:100%;object-fit:contain">
+            </div>
+            <div class="gallery-item" data-label="Waktu sayang sakit dan ditemenin cheline and lala">
+              <img src="pic50.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Day 2 sayang di rumah sakit, msih bobo">
+              <img src="pic51.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="The moment i realized i will forever loved you, even on your lowest time, and always be together.">
+              <img src="pic53.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Sayang waktu maen guitaraa">
+              <img src="pic43.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="WHAUWW SAYANG POSE LUCUU GEMESHHH SKALII PENGEN CUBITTT">
+              <img src="pic44.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Drink coffee.">
+              <img src="pic45.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Hihihihi sayang dengan randomnessnya ">
+              <img src="pic46.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Waktu lagi down tentang sesuatu">
+              <img src="pic47.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Biasalah maskeran (jadi hulk jir)">
+              <img src="pic48.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="Us two being random setelah bobo bareng">
+              <img src="pic49.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+            <div class="gallery-item" data-label="And finally, sayang p rambut perlahan jadi panjang">
+              <img src="pic52.jpg" style="width: 100%; height:100%;object-fit:cover">
+            </div>
+          </div>
+          <p class="gallery-note">Semua foto - foto ini yang qta pilih, merupakan momen - momen dimana qta merasa bahwa <br> 
+          qta bisa bersyukur sekali bisa punya seseorang rupa sayang. <br>
+          Dimana qta bisa spend time dan mengabadikan foto - foto ataupun video of us two <br> 
+          meskipun dalam bentuk digital. <br> 
+          Qta berharap, suatu hari nanti torang dua bisa mengabadikan momen - momen ini dan seterusnya <br>
+          dalam bentuk buku album saat torang bisa serumah🤍🧡</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STORY MODAL ===== -->
+<div class="modal fade" id="storyModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">💌 Our Journey Together So Far...</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="timeline">
+          <div class="tl-item" style="animation-delay:0.1s">
+            <div class="tl-dot" style="background:linear-gradient(135deg,#FF6B9D,#ff8fab)">🌸</div>
+            <div class="tl-body">
+              <div class="tl-year">First Month (Oct - Nov)</div>
+              <div class="tl-title">The First Hello</div>
+              <div class="tl-desc">Sayang dengan keberaninannya yang masuk ke tpe chat duluan... and eventually torang berdua mulai chat-chat an bareng, 
+              main bareng, smpe akhirnya qta memutuskan untuk ajak jadian dengan sayang, mungkin kalo orang lain anggap itu trg berdua agak cepat hubungannya
+              apalagi qta yg confess pada hari pertama torang bkudapa, but i was glad i did that. Selama bulan November itu banyakk hal yg terjadi, dari ketawa - ketawaan bareng, 
+              smpe menangis bareng karena adanya suatu hal, but im happy we manage to go through it the first month.
+              </div>
+            </div>
+          </div>
+          <div class="tl-item" style="animation-delay:0.2s">
+            <div class="tl-dot" style="background:linear-gradient(135deg,#00CED1,#0077B6)">✨</div>
+            <div class="tl-body">
+              <div class="tl-year">Second Month (December)</div>
+              <div class="tl-title">The Hardest Month, but still Memorable</div>
+              <div class="tl-desc">From late nights, deep talks, yang buat torang makin dekat, dengan adanya "sesuatu" yang torang perbuat dari bulan lalu
+                smpe-smpe anxietynya qta kambuh, dan sayang yg menangis pulang dari torang p date dari kawasan tetapi qta yakinkan ke sayang 
+                bahwa everything will be fine, dengan qta yg berdoa banyak ke Tuhan untuk melindungi torang dua apalagi ke sayang, smpe sayang waktu itu sempat sakit
+                dan kita dengan sebisa bisanya qta temanin pa sayang pada waktu itu, but eventually sayang jadi sehat!! We even watched a movie together for the first time
+                walaupun pada waktu bulan Desember torang dua nd bisa sama - sama di natal dan tahun baru karena sayang ke Timika, namun torang dua ttap saling kasih salam, sama - sama biarpun hanya melewati
+                layar dan mengakhir tahun 2025 dengan tangisan yang haru pada malam hari di bulan yang baru, tahun yang baru.</div>
+            </div>
+          </div>
+          <div class="tl-item" style="animation-delay:0.3s">
+            <div class="tl-dot" style="background:linear-gradient(135deg,#98F5E1,#00CED1)">⭐</div>
+            <div class="tl-body">
+              <div class="tl-year">Third Month (January)</div>
+              <div class="tl-title">Our First Year New Year Together</div>
+              <div class="tl-desc">We started 2026, dengan resolusi yang baru, ada tujuan buat torang p relationship bertumbuh bersama dengan sehat, pada waktu ini
+                sayang udah pulg dari Timika dan melanjutkan kuliahnya, and at the same time disinilah torang mulai torg p fase LDR, krna ada jarak ini yg membuat torang makin loyal
+                to each other dan bersabar akan hubungan torang yg mendatang, even though dp laste masih dpa sempat bku dpa di awal bulan di Walu Beans (biarle ana amper dpa marah ortu)
+                but for you, i'll try and to meet up to your expectation, and then torg bku dapa lagi saat tpe kunjungan ke Unklab untuk bkudpa dengan sayang saking rindunya ama sayang waktu itu.🌅</div>
+            </div>
+          </div>
+          <div class="tl-item" style="animation-delay:0.4s">
+            <div class="tl-dot" style="background:linear-gradient(135deg,#FFB3CE,#FF6B9D)">💕</div>
+            <div class="tl-body">
+              <div class="tl-year">Fourth Month (February)</div>
+              <div class="tl-title">Intimate Time</div>
+              <div class="tl-desc">Di bulan februari bulan penuh kasih sayang, qta pengen rayakan Valentine sama sayang 
+                namun qta nd sangka bahwa sayang mo ketemuan dgn boss besar (my mom) dengan cepat, apalagi sayang waktu itu sleepover di rumahh
+                and of course mama dan sayang bku kenal (walaupun sayang mengenali diri sndiri secara "teman dekat") tapi qta senang bahwa sayang bisa kenalan dengan tpe keluarga
+                little by little, bisa ke gereja bareng dan beribadah bersama sama. Dan selama 3 hari itu mmang qta bisa spend quality time bareng sayang dari malam smpe pagi, pagi smpe malam
+                and im so happy at the time, namun kembali ke sad lagi karena sayang harus balik ke Airmadidi karena waktu itu ada kuliah (dan karena tante Linda udah tanya - tanya...)
+                but then mendekati akhir bulan, we both spend our time again, intimately and private this time💖</div>
+            </div>
+          </div>
+          <div class="tl-item" style="animation-delay:0.5s">
+            <div class="tl-dot" style="background:linear-gradient(135deg,#FFD700,#FFA500)">🎂</div>
+            <div class="tl-body">
+              <div class="tl-year">Fifth Month (March - Today) </div>
+              <div class="tl-title">Your Journey</div>
+              <div class="tl-desc">Sampailah kita di awal bulan maret, munculnya fase depresi berat sayang dimana mungkin karena adanya masalah yang disebabkan oleh kewalahan torang dua,
+                dimana qta dan sayang ketakutan untuk kesekian kalinya, dimana ketakutan ini lebih parah dari sebelumnya yang akhirnya membuat sayang jatuh kedalam kehampaan yang dalam 
+                yang seketika membuat sayang menyakiti dirinya sendiri, dengan menyayat berulang ulang kali, sampe bisa dibilang adanya luka dalam sebab kejadian tersebut, dan qta yang hanya
+                bisa melihat dari jauh melewati layar, merasa tersakiti, bersalah, menangis, kecewa, dan sempat memikirkan jalan hubungan ini juga karena melihat dirinya sayang yang menahan rasa sakit, 
+                menangis, secara sendirian karena merasa dirinya berhak disakitin karena sayang menganggap sayang berhak mendapatkan luka - luka tersebut karena telah melakukan kesalahan dan harus "dihukum". 
+                Namun, setelah itu torang bisa komunikasikan dengan baik - baik mar lantaran sayang dalam pikiran yang lagi berkabut itu, qta nd bisa bikin apa - apa saat sayang menyakiti dirinya dan hanya bisa
+                menemani sayang melewati layar, dan bercerita karena ada kenapanya, dan apa yang memberatkan sayang p hati dan pikiran. And days goes by dan tibalah di hari sebelum sayang p ultah, dimana oma
+                akhirnya bepergian duluan ke pelukan Tuhan, dimana oma bisa beristirahat dengan tenang setelah melawan sakit selama kurang lebih 2 minggu, oma yang belum bisa melihat sayang mengselebrasi ulang tahunnya
+                bersama - sama, namun oma sekarang bisa melihat perkembangannya sayang dengan opa bersama sama di surga. Mungkin ada arti oma pergi di hari sebelum sayang p ultah, entah alasannya apa Tuhan panggil oma,
+                mungkin karena oma p tujuan dalam hidupnya sudah selesai dan bisa menginspirasi sayang, ataupun membuat sayang meyadari akan sesuatu, we don't know why it happen, but it happens for a reason di bulan maret ini before your birthday.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content:center;">
+        <span style="font-family:'Fredoka One',cursive;color:var(--mint);font-size:1.1rem;">Made with 🤍 just for you</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SPECIAL MESSAGE MODAL ===== -->
+<div class="modal fade" id="messageModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">💛 A Message From My Heart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="msg-envelope">
+          <span class="envelope-icon">💌</span>
+          <div class="msg-letter">
+            <p>To my dearest princess, my babygirl Eyin,</p>
+            <p>On this very special day/night (tergantung jam berapa da baca), I want you to know just how much you mean to me. Sayang adalah seseorang yang membuat qta pengen menjadi lebih baik karena adanya torang p hubungan ini,
+              maafkan qta klo mo rayakan sayang p ulang tahun harus melewati layar sekali untuk pertama kalinya, dimana sayang seharusnya ditemani 
+            </p>
+            <p>I may not be your first in everything, but at least, setidaknya biarkan qta menjadi seorang lelaki, boyfriend, future husband yang bisa menunjukkan bahwa Celine berhak dicintai dan disayangi.</p>
+            <p>I love you not just today, but for every single day, in every universe and i will still choose you.</p>
+            <p>Happy Birthday, my babygirl. For the first time, untuk nge - rayain ultahnya melewati hadiah kecil ini 🎂✨</p>
+            <div class="msg-sign">With all my love &amp; then some,<br>By yours truly 🤍</div>
+          </div>
+          <div class="msg-hearts">💛 🧡 💛 🧡 💛</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC PLAYER BAR -->
+<div id="musicBar">
+  <div class="music-info">
+    <div class="music-album-art" id="albumArt">🎵</div>
+    <div class="music-track-info">
+      <div class="music-track-name" id="trackName">Add Your Song</div>
+      <div class="music-track-artist" id="trackArtist">♪ Our Playlist ♪</div>
+    </div>
+  </div>
+  <div class="music-controls">
+    <button class="music-btn" onclick="seekBack()" title="Prev / Rewind">⏮</button>
+    <button class="music-btn play-btn" id="playPauseBtn" onclick="togglePlay()">▶</button>
+    <button class="music-btn" onclick="seekForward()" title="Next track">⏭</button>
+  </div>
+  <div class="music-progress-wrap">
+    <input type="range" class="music-progress" id="progressBar" value="0" min="0" max="100" step="0.1" oninput="seekTo(this.value)">
+    <div class="music-time-row">
+      <span id="currentTime">0:00</span>
+      <span id="totalTime">0:00</span>
+    </div>
+  </div>
+  <div class="music-volume-wrap">
+    <span class="vol-icon" onclick="toggleMute()" id="volIcon">🔊</span>
+    <input type="range" class="music-volume" id="volumeSlider" value="80" min="0" max="100" oninput="setVolume(this.value)">
+  </div>
+  <audio id="audioEl" preload="metadata"></audio>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+// ===== BUBBLES =====
+(function spawnBubbles() {
+  const container = document.getElementById('bubblesContainer');
+  const sizes = [18,26,34,44,54,14,22,38,48,60];
+  const count = 28;
+  for (let i = 0; i < count; i++) {
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const s = sizes[Math.floor(Math.random() * sizes.length)];
+    const dur = 8 + Math.random() * 14;
+    const delay = Math.random() * 18;
+    b.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${dur}s;animation-delay:-${delay}s;`;
+    container.appendChild(b);
+  }
+})();
+
+// ===== CANDLES =====
+let candlesBlown = false;
+function blowCandles() {
+  if (candlesBlown) return;
+  candlesBlown = true;
+  document.querySelectorAll('.candle-flame').forEach(f => f.classList.add('blown'));
+  document.getElementById('blowBtn').disabled = true;
+  document.getElementById('blowBtn').textContent = '✅ Candles Blown!';
+  document.getElementById('blownMsg').style.display = 'block';
+  for (let i = 0; i < 14; i++) spawnConfetti();
+}
+function spawnConfetti() {
+  const colors = ['#FF6B9D','#00CED1','#98F5E1','#FFD700','#fff','#87CEEB'];
+  const c = document.createElement('div');
+  c.style.cssText = `position:fixed;left:${35+Math.random()*30}%;top:${30+Math.random()*20}%;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;background:${colors[Math.floor(Math.random()*colors.length)]};border-radius:${Math.random()>0.5?'50%':'3px'};pointer-events:none;z-index:999;animation:confettiFall ${1.2+Math.random()*1.2}s ease-out forwards;`;
+  document.body.appendChild(c);
+  setTimeout(() => c.remove(), 2500);
+}
+const confettiStyle = document.createElement('style');
+confettiStyle.textContent = `@keyframes confettiFall{0%{transform:translateY(0) rotate(0) scale(1);opacity:1;}100%{transform:translateY(${120+Math.random()*80}px) rotate(${360+Math.random()*360}deg) scale(0.3) translateX(${-60+Math.random()*120}px);opacity:0;}}`;
+document.head.appendChild(confettiStyle);
+
+// ===== GALLERY =====
+const GALLERY_PASSWORD = '07112025';
+let galleryUnlocked = false;
+function openGallery() {
+  const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
+  document.getElementById('pwGate').style.display = galleryUnlocked ? 'none' : 'block';
+  document.getElementById('galleryContent').style.display = galleryUnlocked ? 'block' : 'none';
+  document.getElementById('pwError').textContent = '';
+  modal.show();
+}
+function checkPw() {
+  const input = document.getElementById('pwInput');
+  const err = document.getElementById('pwError');
+  if (input.value.trim() === GALLERY_PASSWORD) {
+    galleryUnlocked = true;
+    document.getElementById('pwGate').style.display = 'none';
+    document.getElementById('galleryContent').style.display = 'block';
+    err.textContent = '';
+  } else {
+    err.textContent = '❌ Tet Tett Salah! (Hint: When yh jadian...)';
+    input.classList.remove('shake');
+    void input.offsetWidth;
+    input.classList.add('shake');
+    input.value = '';
+    setTimeout(() => input.classList.remove('shake'), 500);
+  }
+}
+document.getElementById('galleryModal').addEventListener('hidden.bs.modal', () => {
+  document.getElementById('pwInput').value = '';
+  document.getElementById('pwError').textContent = '';
+});
+
+// ===== STORY =====
+function openStory() {
+  new bootstrap.Modal(document.getElementById('storyModal')).show();
+}
+
+// ===== SPECIAL MESSAGE =====
+function openMessage() {
+  new bootstrap.Modal(document.getElementById('messageModal')).show();
+}
+
+// ===== DAY COUNTER =====
+// 💡 Set your relationship start date here: YYYY, MM-1 (0-indexed month), DD
+const START_DATE = new Date(2025, 10, 7, 0, 0, 0); // July 11 2025
+function updateCounter() {
+  const now = new Date();
+  const diff = Math.max(0, now - START_DATE);
+  const totalSecs = Math.floor(diff / 1000);
+  const secs  = totalSecs % 60;
+  const mins  = Math.floor(totalSecs / 60) % 60;
+  const hours = Math.floor(totalSecs / 3600) % 24;
+  const days  = Math.floor(totalSecs / 86400);
+  document.getElementById('cntDays').textContent  = days;
+  document.getElementById('cntHours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('cntMins').textContent  = String(mins).padStart(2,'0');
+  document.getElementById('cntSecs').textContent  = String(secs).padStart(2,'0');
+}
+updateCounter();
+setInterval(updateCounter, 1000);
+
+// ===== MUSIC PLAYER =====
+// 💡 Add your songs here — put the .mp3 files in the same folder as this HTML file
+const playlist = [
+  { src: 'song1.mp3', title: 'worship or love', artist: 'Them I' },
+  { src: 'song2.mp3', title: 'And Then There Was Us', artist: 'Hoppipolla' },
+];
+let currentTrack = 0;
+
+const audio = document.getElementById('audioEl');
+const playBtn = document.getElementById('playPauseBtn');
+const progressBar = document.getElementById('progressBar');
+const albumArt = document.getElementById('albumArt');
+let isMuted = false, lastVol = 0.8;
+
+function loadTrack(index) {
+  const track = playlist[index];
+  audio.src = track.src;
+  document.getElementById('trackName').textContent = track.title;
+  document.getElementById('trackArtist').textContent = track.artist;
+  progressBar.value = 0;
+  progressBar.style.background = 'rgba(255,255,255,0.2)';
+  document.getElementById('currentTime').textContent = '0:00';
+  document.getElementById('totalTime').textContent = '0:00';
+  audio.load();
+}
+
+function togglePlay() {
+  if (!audio.src || audio.src === window.location.href) {
+    document.getElementById('trackName').textContent = '← Set your song src first!';
+    setTimeout(() => loadTrack(currentTrack), 2500);
+    return;
+  }
+  if (audio.paused) { audio.play(); } else { audio.pause(); }
+}
+
+audio.addEventListener('play', () => {
+  playBtn.textContent = '⏸';
+  albumArt.classList.add('playing');
+});
+audio.addEventListener('pause', () => {
+  playBtn.textContent = '▶';
+  albumArt.classList.remove('playing');
+});
+audio.addEventListener('ended', () => {
+  currentTrack = (currentTrack + 1) % playlist.length;
+  loadTrack(currentTrack);
+  audio.play();
+});
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  const pct = (audio.currentTime / audio.duration) * 100;
+  progressBar.value = pct;
+  progressBar.style.background = `linear-gradient(to right, #FF6B9D ${pct}%, rgba(255,255,255,0.2) ${pct}%)`;
+  document.getElementById('currentTime').textContent = fmtTime(audio.currentTime);
+});
+audio.addEventListener('loadedmetadata', () => {
+  document.getElementById('totalTime').textContent = fmtTime(audio.duration);
+});
+
+function seekTo(val) {
+  if (audio.duration) audio.currentTime = (val / 100) * audio.duration;
+}
+function seekBack() {
+  if (audio.currentTime > 3) {
+    audio.currentTime = 0;
+  } else {
+    currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+    loadTrack(currentTrack);
+    audio.play();
+  }
+}
+function seekForward() {
+  currentTrack = (currentTrack + 1) % playlist.length;
+  loadTrack(currentTrack);
+  audio.play();
+}
+function setVolume(val) {
+  lastVol = val / 100;
+  audio.volume = lastVol;
+  isMuted = lastVol === 0;
+  document.getElementById('volIcon').textContent = lastVol === 0 ? '🔇' : lastVol < 0.4 ? '🔉' : '🔊';
+}
+function toggleMute() {
+  isMuted = !isMuted;
+  audio.muted = isMuted;
+  document.getElementById('volIcon').textContent = isMuted ? '🔇' : lastVol < 0.4 ? '🔉' : '🔊';
+  document.getElementById('volumeSlider').value = isMuted ? 0 : lastVol * 100;
+}
+function fmtTime(s) {
+  if (isNaN(s)) return '0:00';
+  return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+}
+
+audio.volume = 0.8;
+loadTrack(0);
+</script>
+</body>
+</html>
